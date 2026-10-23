@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0ea5e9">
+  <meta name="description" content="Hydrate – prosty tracker picia wody">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Hydrate</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💧</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>💧 Hydrate</h1>
+      <p class="subtitle">Dbaj o nawodnienie</p>
+    </header>
+
+    <!-- Główny wskaźnik -->
+    <section class="hero card">
+      <div class="progress-ring-container">
+        <svg class="progress-ring" width="200" height="200">
+          <circle class="ring-bg" cx="100" cy="100" r="88"/>
+          <circle class="ring-fill" cx="100" cy="100" r="88" id="ring"/>
+        </svg>
+        <div class="ring-center">
+          <div class="amount" id="current-amount">0</div>
+          <div class="unit">ml</div>
+          <div class="goal-text">z <span id="goal-display">2000</span> ml</div>
+        </div>
+      </div>
+
+      <div class="percent" id="percent">0%</div>
+    </section>
+
+    <!-- Szybkie dodawanie -->
+    <section class="card">
+      <h2>Dodaj wodę</h2>
+      <div class="quick-add">
+        <button class="add-btn" data-ml="150">150 ml</button>
+        <button class="add-btn" data-ml="250">250 ml</button>
+        <button class="add-btn" data-ml="350">350 ml</button>
+        <button class="add-btn" data-ml="500">500 ml</button>
+      </div>
+      <div class="custom-add">
+        <input type="number" id="custom-ml" placeholder="Własna ilość (ml)" min="1" max="2000">
+        <button id="custom-btn" class="primary-sm">Dodaj</button>
+      </div>
+    </section>
+
+    <!-- Historia dziś -->
+    <section class="card">
+      <div class="card-head">
+        <h2>Dzisiaj</h2>
+        <button id="undo-btn" class="text-btn">Cofnij ostatnie</button>
+      </div>
+      <div id="today-log" class="log"></div>
+    </section>
+
+    <!-- Ustawienia -->
+    <section class="card">
+      <h2>Ustawienia</h2>
+      <div class="setting-row">
+        <label>Cel dzienny (ml)</label>
+        <input type="number" id="goal-input" value="2000" min="500" max="6000" step="100">
+      </div>
+      <button id="save-goal" class="secondary">Zapisz cel</button>
+    </section>
+
+    <footer>
+      <p>Hydrate • PWA</p>
+      <p class="small">Dane tylko na Twoim telefonie</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>
